@@ -32,10 +32,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
-        {children}
-        <ScrollRestoration />
-        <Scripts />
+      <body className="w-full overflow-x-hidden">
+        <main className="bg-base-100 flex flex-col items-center justify-items-center min-h-screen">
+          {children}
+          <ScrollRestoration />
+          <Scripts />
+        </main>
       </body>
     </html>
   );
