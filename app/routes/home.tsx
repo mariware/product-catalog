@@ -1,9 +1,10 @@
 import type { Route } from "./+types/home";
 import { Header } from "~/components/header";
 import { Footer } from "~/components/footer";
-import { Card } from "~/components/card";
+import { Card, CardSkeleton } from "~/components/card";
 import { Search } from "lucide-react";
-import { getGames } from "~/db/queries";
+import { getFeatured, getFreeGames, getTopGames } from "~/db/queries";
+import { Carousel } from "~/components/carousel";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -13,12 +14,14 @@ export function meta({ }: Route.MetaArgs) {
 }
 
 export async function loader() {
-  return await getGames();
+  const featured = await getFeatured();
+  const topGames = await getTopGames();
+  const freeGames = await getFreeGames();
+  return [featured, topGames, freeGames];
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-  const games = loaderData;
-  console.log(games);
+  const [featured, topGames, freeGames] = loaderData;
   return (
     <>
       <Header />
@@ -30,28 +33,14 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           </label>
         </div>
         <div className="flex flex-col gap-8">
-          <img className="aspect-4/1 object-cover rounded-xl" src={`${games[0].backgroundImage}`} />
+          <img className="aspect-4/1 object-cover rounded-xl" src={`${featured[0].backgroundImage}`} />
           <div>
             <p className="text-xl">Featured</p>
-            <p className="text-3xl font-bold">{games[0].name}</p>
+            <p className="text-3xl font-bold">{featured[0].name}</p>
           </div>
         </div>
-        <div className="flex flex-col gap-4">
-          <p className="text-xl font-bold">Discover Top Games</p>
-          <div className="grid grid-cols-3 gap-4">
-            <Card />
-            <Card />
-            <Card />
-          </div>
-        </div>
-        <div className="flex flex-col gap-4">
-          <p className="text-xl font-bold">New Releases</p>
-          <div className="grid grid-cols-3 gap-4">
-            <Card />
-            <Card />
-            <Card />
-          </div>
-        </div>
+        <Carousel title={"Discover Top Games"} games={topGames} />
+        <Carousel title={"Free Games"} games={freeGames} />
       </div>
       <Footer />
     </>

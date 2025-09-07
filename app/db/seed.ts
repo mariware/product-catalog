@@ -40,6 +40,7 @@ async function insertGames(g: gameType) {
     backgroundImage: g.backgroundImage,
     rating: g.rating,
     ratingsCount: g.ratingsCount,
+    downloads: g.downloads,
     playtime: g.playtime,
     price: g.price,
   }).$returningId();
