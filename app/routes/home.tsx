@@ -3,6 +3,7 @@ import { Header } from "~/components/header";
 import { Footer } from "~/components/footer";
 import { Card } from "~/components/card";
 import { Search } from "lucide-react";
+import { getGames } from "~/db/queries";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -11,7 +12,13 @@ export function meta({ }: Route.MetaArgs) {
   ];
 }
 
-export default function Home() {
+export async function loader() {
+  return await getGames();
+}
+
+export default function Home({ loaderData }: Route.ComponentProps) {
+  const games = loaderData;
+  console.log(games);
   return (
     <>
       <Header />
@@ -23,10 +30,10 @@ export default function Home() {
           </label>
         </div>
         <div className="flex flex-col gap-8">
-          <img className="aspect-4/1 object-cover rounded-xl" src="https://media.rawg.io/media/games/737/737ea5662211d2e0bbd6f5989189e4f1.jpg" />
+          <img className="aspect-4/1 object-cover rounded-xl" src={`${games[0].backgroundImage}`} />
           <div>
             <p className="text-xl">Featured</p>
-            <p className="text-3xl font-bold">Game Title</p>
+            <p className="text-3xl font-bold">{games[0].name}</p>
           </div>
         </div>
         <div className="flex flex-col gap-4">
