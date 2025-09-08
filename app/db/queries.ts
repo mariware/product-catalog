@@ -19,3 +19,13 @@ export async function getGames(query: string) {
   return await db.select().from(gamesTable).where(like(gamesTable.name, `%${query}%`)).limit(3);
 }
 
+export async function getPaginatedGames({ page }: { page: number }) {
+  const offset = (page - 1) * 12;
+
+  const [games, countResult] = await Promise.all([
+    db.select().from(gamesTable).limit(12).offset(offset).orderBy(desc(gamesTable.downloads)),
+    db.select({ count: sql`count(*)`.mapWith(Number) }).from(gamesTable),
+  ]);
+
+  return [games, countResult[0].count];
+}
