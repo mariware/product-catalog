@@ -1,7 +1,7 @@
 import { decimal, int, mysqlTable, primaryKey, serial, varchar } from 'drizzle-orm/mysql-core';
 
 export const gamesTable = mysqlTable('games', {
-  id: serial('id').primaryKey(),
+  id: int('id').notNull().autoincrement().primaryKey(),
   slug: varchar('slug', { length: 255 }).notNull().unique(),
   name: varchar('name', { length: 255 }).notNull(),
   backgroundImage: varchar('background_image', { length: 255 }),
@@ -13,7 +13,7 @@ export const gamesTable = mysqlTable('games', {
 });
 
 export const genresTable = mysqlTable('genres', {
-  id: serial('id').primaryKey(),
+  id: int('id').notNull().autoincrement().primaryKey(),
   slug: varchar('slug', { length: 255 }).notNull().unique(),
   name: varchar('name', { length: 255 }).notNull(),
   backgroundImage: varchar('background_image', { length: 255 }),
