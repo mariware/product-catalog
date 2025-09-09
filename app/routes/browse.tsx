@@ -7,8 +7,8 @@ import { Card } from "~/components/card";
 
 export function meta({ }: Route.MetaArgs) {
     return [
-        { title: "Catalog | Browse" },
-        { name: "description", content: "Browse latest games." },
+        { title: "ARQADE | Browse" },
+        { name: "description", content: "Browse the latest games." },
     ];
 }
 
@@ -45,7 +45,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                         <a
                             key={i + 1}
                             href={`?page=${i + 1}`}
-                            className={`px-3 py-1 rounded ${page === i + 1 ? "bg-primary text-white" : "bg-base-200"
+                            className={`px-4 py-1 rounded ${page === i + 1 ? "bg-primary/50 text-white" : "bg-base-200"
                                 }`}
                         >
                             {i + 1}

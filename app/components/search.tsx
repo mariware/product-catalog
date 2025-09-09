@@ -17,8 +17,8 @@ export default function SearchInput() {
     }
 
     return (
-        <div className="group relative">
-            <label className="input">
+        <div className="group relative ">
+            <label className="input bg-base-100 border-indigo-800 focus-within:outline-0 focus-within:shadow-md focus-within:shadow-indigo-900">
                 <Search className="h-4" />
                 <input
                     type="search"
@@ -29,13 +29,13 @@ export default function SearchInput() {
                 />
             </label>
 
-            <div className="hidden absolute top-10 rounded-sm w-80 z-10 bg-base-200 group-focus-within:flex">
+            <div className="hidden absolute top-10 rounded-sm w-80 z-10 bg-base-100 group-focus-within:flex">
                 {(results && results.length > 0) ?
                     <ul className="flex flex-col gap-2 p-4 w-full">
-                        <p className="px-3 font-bold text-sm">Top Results</p>
+                        <p className="px-3 font-bold text-sm">TOP RESULTS</p>
                         {results.map((game) => (
                             <a href={`/games/${game.id}`} key={game.id}>
-                                <li className="flex gap-4 items-center hover:bg-base-300 p-2">
+                                <li className="flex gap-4 items-center px-2 py-1 rounded-md hover:bg-radial-[at_50%_75%] hover:shadow-lg hover:shadow-indigo-900 hover:from-indigo-900/50 hover:border-indigo-900 transition-all duration-200">
                                     <img className="aspect-1/1 object-cover rounded-sm w-12" src={`${game.backgroundImage}`} />
                                     {game.name}
                                 </li>

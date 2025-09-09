@@ -34,18 +34,18 @@ export function Card({ game }: { game: typeof gamesTable.$inferInsert }) {
 
     return (
         <a href={`/games/${game.id}`}>
-            <div className="card shadow-sm p-4 hover:bg-base-300">
+            <div className="card shadow-sm p-4 hover:bg-black bg-radial-[at_50%_100%] hover:from-indigo-900/50 hover:shadow-lg hover:shadow-indigo-800">
                 <figure>
                     <img
                         className="rounded-lg aspect-16/9 object-cover"
                         src={`${game.backgroundImage}`}
                         alt="Game" />
                 </figure>
-                <div className="card-body px-0 py-2">
-                    <h2 className="card-title">{game.name}</h2>
+                <div className="card-body px-0 pt-4 py-2 gap-1">
+                    <h2 className="card-title text-xl font-[Afacad]">{game.name}</h2>
                     <p>{game.price == "0.00" ? "Free" : `$ ${game.price}`}</p>
                     <div className="card-actions pt-2">
-                        <button className="btn btn-primary" onClick={handleBuy} disabled={cart.some((g) => g.id === game.id)}>{cart.some((g) => g.id === game.id) ? "In Cart" : "Add to Cart"}</button>
+                        <button className="btn btn-primary font-[Afacad] bg-linear-to-b from-black to-indigo-900 hover:from-indigo-600 transition-all duration-200" onClick={handleBuy} disabled={cart.some((g) => g.id === game.id)}>{cart.some((g) => g.id === game.id) ? "IN CART" : "ADD TO CART"}</button>
                     </div>
                 </div>
             </div>

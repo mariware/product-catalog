@@ -10,7 +10,7 @@
   --color-base-200: oklch(19% 0 0);
   --color-base-300: oklch(22% 0 0);
   --color-base-content: oklch(87.609% 0 0);
-  --color-primary: oklch(35% 0 0);
+  --color-primary: oklch(51.1% 0.262 276.966);
   --color-primary-content: oklch(96% 0.018 272.314);
   --color-secondary: oklch(70% 0.183 293.541);
   --color-secondary-content: oklch(94% 0.028 342.258);
@@ -44,6 +44,7 @@
 html,
 body {
   @apply bg-white dark:bg-gray-950;
+  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
