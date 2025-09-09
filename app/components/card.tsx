@@ -1,4 +1,7 @@
+import { useContext, useState } from "react";
 import type { gamesTable } from "~/db/schema";
+import { CartContext } from "~/utils/context";
+import { saveToLocalStorage } from "~/utils/storage";
 
 export function CardSkeleton() {
     return (
@@ -18,6 +21,17 @@ export function CardSkeleton() {
 }
 
 export function Card({ game }: { game: typeof gamesTable.$inferInsert }) {
+    const cart = useContext(CartContext);
+
+    const handleBuy = (e: React.MouseEvent) => {
+        e.preventDefault();
+        if (!cart.some((g) => g.id === game.id)) {
+            cart.push(game);
+            saveToLocalStorage("cart", cart);
+            window.dispatchEvent(new Event("cartUpdated"));
+        }
+    }
+
     return (
         <a href={`/games/${game.id}`}>
             <div className="card shadow-sm p-4 hover:bg-base-300">
@@ -31,7 +45,7 @@ export function Card({ game }: { game: typeof gamesTable.$inferInsert }) {
                     <h2 className="card-title">{game.name}</h2>
                     <p>{game.price == "0.00" ? "Free" : `$ ${game.price}`}</p>
                     <div className="card-actions pt-2">
-                        <button className="btn btn-primary">Buy Now</button>
+                        <button className="btn btn-primary" onClick={handleBuy} disabled={cart.some((g) => g.id === game.id)}>{cart.some((g) => g.id === game.id) ? "In Cart" : "Add to Cart"}</button>
                     </div>
                 </div>
             </div>

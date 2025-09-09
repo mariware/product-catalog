@@ -34,9 +34,6 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         <>
             <Header />
             <div className="flex flex-col max-w-5xl p-8 gap-16 pb-16">
-                <div className="sticky top-0 w-full py-4 bg-base-100/50 z-10 backdrop-blur-md">
-                    <SearchInput />
-                </div>
                 <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                     {Array.isArray(games) && games.map((game) => (
                         <Card key={game.id} game={game} />

@@ -3,7 +3,9 @@ import { Header } from "~/components/header";
 import { Footer } from "~/components/footer";
 import { getGameDetails } from "~/db/queries";
 import { StarHalfIcon, StarIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { CartContext } from "~/utils/context";
+import { saveToLocalStorage } from "~/utils/storage";
 
 export function meta({ }: Route.MetaArgs) {
     return [
@@ -28,6 +30,17 @@ export default function Game({ loaderData }: Route.ComponentProps) {
     const [preview, setPreview] = useState(gameDetails.backgroundImage);
     const [scroll, setScroll] = useState(1);
     const [startIndex, setStartIndex] = useState(0);
+
+    const cart = useContext(CartContext);
+
+    const handleBuy = (e: React.MouseEvent) => {
+        e.preventDefault();
+        if (!cart.some((g) => g.id === gameDetails.id)) {
+            cart.push(gameDetails);
+            saveToLocalStorage("cart", cart);
+            window.dispatchEvent(new Event("cartUpdated"));
+        }
+    }
 
     useEffect(() => {
         const update = () => {
@@ -83,7 +96,7 @@ export default function Game({ loaderData }: Route.ComponentProps) {
                 </div>
                 <p className="text-center"><span className="font-bold">Est. Playtime: </span>{gameDetails.playtime} hours</p>
                 <div className="card-actions pt-2">
-                    <button className="btn btn-primary">Buy Now</button>
+                    <button className="btn btn-primary" onClick={handleBuy} disabled={cart.some((g) => g.id === gameDetails.id)}>{cart.some((g) => g.id === gameDetails.id) ? "In Cart" : "Add to Cart"}</button>
                 </div>
             </div>
             <div className="flex gap-2 items-center px-4">

@@ -32,12 +32,9 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     <>
       <Header />
       <div className="flex flex-col max-w-5xl p-8 gap-16 pb-16">
-        <div className="sticky top-0 w-full py-4 bg-base-100/50 z-10 backdrop-blur-md">
-          <SearchInput />
-        </div>
         <a href={`/games/${featured[0].id}`}>
           <div className="flex flex-col gap-8 p-4 pb-8 hover:bg-base-300 rounded-2xl">
-            <img className="aspect-4/1 object-cover rounded-xl" src={`${featured[0].backgroundImage}`} />
+            <img className="aspect-16/9 md:aspect-4/1 object-cover rounded-xl" src={`${featured[0].backgroundImage}`} />
             <div>
               <p className="text-xl">Featured</p>
               <p className="text-3xl font-bold">{featured[0].name}</p>

@@ -9,6 +9,9 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import { useEffect, useState } from 'react';
+import { loadFromLocalStorage, saveToLocalStorage } from "./utils/storage";
+import { CartContext } from "./utils/context";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -24,6 +27,23 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const [cart, setCart] = useState(loadFromLocalStorage('cart', []));
+
+  useEffect(() => {
+    const syncCart = () => {
+      const storedCart = JSON.parse(localStorage.getItem("cart") ?? "[]");
+      setCart(storedCart);
+    };
+
+    window.addEventListener("storage", syncCart);
+    window.addEventListener("cartUpdated", syncCart);
+
+    return () => {
+      window.removeEventListener("storage", syncCart);
+      window.removeEventListener("cartUpdated", syncCart);
+    };
+  }, []);
+
   return (
     <html lang="en">
       <head>
@@ -34,7 +54,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body className="w-full overflow-x-hidden">
         <main className="bg-base-100 flex flex-col items-center justify-items-center min-h-screen">
-          {children}
+          <CartContext.Provider value={cart}>
+            {children}
+          </CartContext.Provider>
           <ScrollRestoration />
           <Scripts />
         </main>
