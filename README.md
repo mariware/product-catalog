@@ -1,87 +1,73 @@
-# Welcome to React Router!
+<div align="center">
+  <img src="public/logotype_variant.svg" alt="Project Logo" width="400" />
 
-A modern, production-ready template for building full-stack React applications using React Router.
+  ### ARQADE by [mariware](https://github.com/mariware)
+  Cascade into your own arcade.
+</div>
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+## 📖 Features 
 
-## Features
+**ARQADE** is a mock digital game store designed to showcase a curated catalog of games. Users can browse titles, explore game pages, and simulate the shopping cart experience within a sleek and responsive interface. 
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+- 🕹️ **Game Catalog**: Browse a curated selection of games.  
+- 📄 **Game Details**: View ratings, estimated playtime, and screenshots on dedicated pages.  
+- 🛒 **Cart & Checkout**: Add games to your cart and calculate totals.  
+- 🔎 **Database Queries**: Includes built-in database query handling.  
+- 🎨 **Responsive Design**: Works seamlessly across desktop, tablet, and mobile.
 
-## Getting Started
+## 🚀 Tech Stack
 
-### Installation
+This project leverages the following modern web development stack:  
 
-Install the dependencies:
+- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" height="14" alt="React" /> [**React**](https://react.dev/): component-based UI, basic state management
+- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/reactrouter/reactrouter-original.svg" height="14" alt="ReactRouter" /> [**ReactRouter**](https://reactrouter.com/): app routing, backend services
+- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" height="14" alt="TailwindCSS" /> [**TailwindCSS**](https://tailwindcss.com/): utility-first styling  
+- [**daisyUI**](https://daisyui.com/): prebuilt, accessible UI components  
+- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg" height="14" alt="MySQL"/> [**MySQL**](https://www.mysql.com/) with [**Drizzle ORM**](https://orm.drizzle.team/): database and schema management
+
+## 📦 Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/product-catalog.git
+cd product-catalog
+```
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-### Development
+Set up MySQL with Docker:
+```
+docker run --name drizzle-mysql -e MYSQL_ROOT_PASSWORD=password -d -p 3306:3306 mysql
+```
 
-Start the development server with HMR:
+Initialize the database:
+```
+npx drizzle-kit generate
+npx drizzle-kit migrate
+npx tsx app/db/seed.ts
+```
+
+Run the development server:
 
 ```bash
 npm run dev
 ```
 
-Your application will be available at `http://localhost:5173`.
+The app will be available at `http://localhost:5173`.
 
-## Building for Production
+## 📸 Screenshots
 
-Create a production build:
+<div align="center">
+  <img src="public/screenshots/01.jpeg" alt="screenshot1" width="49%" />
+  <img src="public/screenshots/02.jpeg" alt="screenshot2" width="49%" />
+  <img src="public/screenshots/03.jpeg" alt="screenshot3" width="49%" />
+  <img src="public/screenshots/04.jpeg" alt="screenshot4" width="49%" />
+</div>
 
-```bash
-npm run build
-```
+## 📝 Notes
 
-## Deployment
-
-### Docker Deployment
-
-To build and run using Docker:
-
-```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+This project was developed as part of a technical assessment. Deployment was not required as part of its scope.
