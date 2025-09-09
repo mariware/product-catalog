@@ -5,7 +5,9 @@ export function Header() {
         <div className="navbar bg-base-100/50 min-h-0 shadow-sm p-4 border-b-1 border-b-white/15">
             <div className="navbar-start">
                 <div className="flex-1">
-                    <a className="btn btn-ghost text-xl hover:bg-primary">Catalog</a>
+                    <a href="/" className="btn btn-ghost text-xl hover:bg-primary">ARQADE</a>
+                    <a href="/" className="btn btn-ghost font-normal text-base">Discover</a>
+                    <a href="/browse" className="btn btn-ghost font-normal text-base">Browse</a>
                 </div>
             </div>
             <div className="navbar-end">

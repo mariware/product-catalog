@@ -1,6 +1,6 @@
 import { db } from "~/db";
-import { gamesTable } from "~/db/schema";
-import { asc, desc, sql, like } from 'drizzle-orm';
+import { gameGenresTable, gamesTable, genresTable, screenshotsTable } from "~/db/schema";
+import { desc, sql, like, eq } from 'drizzle-orm';
 
 export async function getFeatured() {
   return await db.select().from(gamesTable).orderBy(desc(gamesTable.rating)).limit(1);
@@ -15,8 +15,22 @@ export async function getFreeGames() {
 }
 
 export async function getGames(query: string) {
-  console.log(query);
   return await db.select().from(gamesTable).where(like(gamesTable.name, `%${query}%`)).limit(3);
+}
+
+export async function getGameDetails(query: number) {
+
+  const [games, screenshots] = await Promise.all([
+    db.select().from(gamesTable)
+      .leftJoin(gameGenresTable, eq(gameGenresTable.gameId, gamesTable.id))
+      .leftJoin(genresTable, eq(gameGenresTable.genreId, genresTable.id))
+      .where(eq(gamesTable.id, query)),
+    db.select().from(gamesTable)
+      .leftJoin(screenshotsTable, eq(screenshotsTable.gameId, gamesTable.id))
+      .where(eq(gamesTable.id, query)),
+  ]);
+
+  return [games, screenshots];
 }
 
 export async function getPaginatedGames({ page }: { page: number }) {

@@ -30,17 +30,23 @@ export default function SearchInput() {
             </label>
 
             <div className="hidden absolute top-10 rounded-sm w-80 z-10 bg-base-200 group-focus-within:flex">
-                {results && results.length > 0 && (
+                {(results && results.length > 0) ?
                     <ul className="flex flex-col gap-2 p-4 w-full">
                         <p className="px-3 font-bold text-sm">Top Results</p>
                         {results.map((game) => (
-                            <li key={game.id} className="flex gap-4 items-center hover:bg-base-300 p-2">
-                                <img className="aspect-1/1 object-cover rounded-sm w-12" src={`${game.backgroundImage}`} />
-                                {game.name}
-                            </li>
+                            <a href={`/games/${game.id}`} key={game.id}>
+                                <li className="flex gap-4 items-center hover:bg-base-300 p-2">
+                                    <img className="aspect-1/1 object-cover rounded-sm w-12" src={`${game.backgroundImage}`} />
+                                    {game.name}
+                                </li>
+                            </a>
                         ))}
                     </ul>
-                )}
+                    :
+                    <ul className="flex flex-col gap-2 p-4 w-full">
+                        <p className="px-3 text-sm">No games found.</p>
+                    </ul>
+                }
             </div>
         </div>
     );

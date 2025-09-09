@@ -35,13 +35,18 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         <div className="sticky top-0 w-full py-4 bg-base-100/50 z-10 backdrop-blur-md">
           <SearchInput />
         </div>
-        <div className="flex flex-col gap-8">
-          <img className="aspect-4/1 object-cover rounded-xl" src={`${featured[0].backgroundImage}`} />
-          <div>
-            <p className="text-xl">Featured</p>
-            <p className="text-3xl font-bold">{featured[0].name}</p>
+        <a href={`/games/${featured[0].id}`}>
+          <div className="flex flex-col gap-8 p-4 pb-8 hover:bg-base-300 rounded-2xl">
+            <img className="aspect-4/1 object-cover rounded-xl" src={`${featured[0].backgroundImage}`} />
+            <div>
+              <p className="text-xl">Featured</p>
+              <p className="text-3xl font-bold">{featured[0].name}</p>
+              <div className="card-actions pt-4">
+                <button className="btn btn-primary">Buy Now</button>
+              </div>
+            </div>
           </div>
-        </div>
+        </a>
         <Carousel title={"Discover Top Games"} games={topGames} />
         <Carousel title={"Free Games"} games={freeGames} />
       </div>
